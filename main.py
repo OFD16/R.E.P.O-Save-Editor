@@ -367,7 +367,11 @@ def update_ui_from_json(data):
 
         profile_picture_path = fetch_steam_profile_picture(player['id'])
 
-        image = Image.open(profile_picture_path)
+        try:
+            image = Image.open(profile_picture_path)
+        except Exception as e:
+            image = Image.open("./icon.ico")
+        
         my_image = CTkImage(light_image=image, dark_image=image, size=(30, 30))
         image_label = CTkLabel(frame, image=my_image, text="")
         image_label.pack(side="left", anchor="nw", padx=(10, 5), pady=10)
